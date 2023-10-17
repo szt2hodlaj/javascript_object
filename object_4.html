@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heroes</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        }
+
+        .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+        text-align: center;
+        }
+
+        .hero-card {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        }
+
+        .add-hero {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        }
+
+        input[type="text"] {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        }
+
+        button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Heroes List</h1>
+        <div class="hero-list" id="hero-list"></div>
+        <div class="add-hero">
+          <input type="text" id="firstName" placeholder="First Name">
+          <input type="text" id="lastName" placeholder="Last Name">
+          <input type="text" id="job" placeholder="Job">
+          <button id="add-button">Add Hero</button>
+        </div>
+      </div>
+      <script>
+        const heroes = [
+        { firstName: "Ahsoka", lastName: "Tano", job: "Padawan" },
+        { firstName: "Boba", lastName: "Fett", job: "Fejvadász" },
+        { firstName: "Han", lastName: "Solo", job: "Csempész" },
+        { firstName: "Leia", lastName: "Organa", job: "Szenátor" }
+        ];
+
+        function renderHeroes() {
+        const heroList = document.getElementById("hero-list");
+        heroList.innerHTML = "";
+
+        heroes.forEach(hero => {
+            const card = document.createElement("div");
+            card.classList.add("hero-card");
+            card.innerHTML = `
+            <div>
+                <p>Name: ${hero.firstName} ${hero.lastName}</p>
+                <p>Job: ${hero.job}</p>
+            </div>
+            `;
+            heroList.appendChild(card);
+        });
+        }
+
+        renderHeroes();
+
+        document.getElementById("add-button").addEventListener("click", () => {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const job = document.getElementById("job").value;
+
+        if (firstName && lastName && job) {
+            heroes.push({ firstName, lastName, job });
+            renderHeroes();
+            document.getElementById("firstName").value = "";
+            document.getElementById("lastName").value = "";
+            document.getElementById("job").value = "";
+        }
+        });
+      </script>
+</body>
+</html>
